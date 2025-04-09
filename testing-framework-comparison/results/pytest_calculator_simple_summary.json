@@ -1,0 +1,42 @@
+{
+  "framework": "pytest",
+  "test_suite": "calculator_simple",
+  "execution_time": {
+    "mean": 0.31909836769104005,
+    "median": 0.3167315721511841,
+    "stdev": 0.017135992410645288,
+    "min": 0.290891170501709,
+    "max": 0.3723599910736084,
+    "confidence_interval": [
+      0.3156982150288274,
+      0.3224985203532527
+    ],
+    "confidence_level": 0.95,
+    "bootstrap": {
+      "mean": 0.3190696397662163,
+      "confidence_interval": [
+        0.3157637405395508,
+        0.3223691344261169
+      ]
+    }
+  },
+  "memory_usage": {
+    "mean": 0.155078125,
+    "median": 0.15625,
+    "stdev": 0.017657953904553277,
+    "min": 0.015625,
+    "max": 0.1796875,
+    "confidence_interval": [
+      0.3156982150288274,
+      0.3224985203532527
+    ],
+    "confidence_level": 0.95,
+    "bootstrap": {
+      "mean": 0.1550653515625,
+      "confidence_interval": [
+        0.151171875,
+        0.158046875
+      ]
+    }
+  }
+}

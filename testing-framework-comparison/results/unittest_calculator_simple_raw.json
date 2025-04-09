@@ -1,0 +1,606 @@
+{
+  "framework": "unittest",
+  "test_suite": "calculator_simple",
+  "runs": [
+    {
+      "iteration": 1,
+      "execution_time_seconds": 0.11609625816345215,
+      "memory_delta_mb": 0.0859375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 2,
+      "execution_time_seconds": 0.1533968448638916,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 3,
+      "execution_time_seconds": 0.11516237258911133,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 4,
+      "execution_time_seconds": 0.11669492721557617,
+      "memory_delta_mb": 0.16796875,
+      "exit_code": 0
+    },
+    {
+      "iteration": 5,
+      "execution_time_seconds": 0.144883394241333,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 6,
+      "execution_time_seconds": 0.16652536392211914,
+      "memory_delta_mb": 0.1640625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 7,
+      "execution_time_seconds": 0.15829133987426758,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 8,
+      "execution_time_seconds": 0.12552165985107422,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 9,
+      "execution_time_seconds": 0.15277552604675293,
+      "memory_delta_mb": 0.16015625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 10,
+      "execution_time_seconds": 0.12238311767578125,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 11,
+      "execution_time_seconds": 0.1140756607055664,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 12,
+      "execution_time_seconds": 0.1161050796508789,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 13,
+      "execution_time_seconds": 0.12288498878479004,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 14,
+      "execution_time_seconds": 0.1145927906036377,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 15,
+      "execution_time_seconds": 0.13646197319030762,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 16,
+      "execution_time_seconds": 0.11651420593261719,
+      "memory_delta_mb": 0.1640625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 17,
+      "execution_time_seconds": 0.132338285446167,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 18,
+      "execution_time_seconds": 0.12405991554260254,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 19,
+      "execution_time_seconds": 0.11408591270446777,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 20,
+      "execution_time_seconds": 0.11054396629333496,
+      "memory_delta_mb": 0.16796875,
+      "exit_code": 0
+    },
+    {
+      "iteration": 21,
+      "execution_time_seconds": 0.1125180721282959,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 22,
+      "execution_time_seconds": 0.11620879173278809,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 23,
+      "execution_time_seconds": 0.11151719093322754,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 24,
+      "execution_time_seconds": 0.11786508560180664,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 25,
+      "execution_time_seconds": 0.11216139793395996,
+      "memory_delta_mb": 0.16015625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 26,
+      "execution_time_seconds": 0.12377715110778809,
+      "memory_delta_mb": 0.12890625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 27,
+      "execution_time_seconds": 0.11345577239990234,
+      "memory_delta_mb": 0.1328125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 28,
+      "execution_time_seconds": 0.13836383819580078,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 29,
+      "execution_time_seconds": 0.11605191230773926,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 30,
+      "execution_time_seconds": 0.11852717399597168,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 31,
+      "execution_time_seconds": 0.11655831336975098,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 32,
+      "execution_time_seconds": 0.11734580993652344,
+      "memory_delta_mb": 0.16015625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 33,
+      "execution_time_seconds": 0.1241142749786377,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 34,
+      "execution_time_seconds": 0.13779234886169434,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 35,
+      "execution_time_seconds": 0.12051248550415039,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 36,
+      "execution_time_seconds": 0.12511825561523438,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 37,
+      "execution_time_seconds": 0.17252635955810547,
+      "memory_delta_mb": 0.12890625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 38,
+      "execution_time_seconds": 0.12131071090698242,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 39,
+      "execution_time_seconds": 0.12751507759094238,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 40,
+      "execution_time_seconds": 0.13385987281799316,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 41,
+      "execution_time_seconds": 0.12022900581359863,
+      "memory_delta_mb": 0.16796875,
+      "exit_code": 0
+    },
+    {
+      "iteration": 42,
+      "execution_time_seconds": 0.11621880531311035,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 43,
+      "execution_time_seconds": 0.12508058547973633,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 44,
+      "execution_time_seconds": 0.11506867408752441,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 45,
+      "execution_time_seconds": 0.1283426284790039,
+      "memory_delta_mb": 0.1640625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 46,
+      "execution_time_seconds": 0.11643767356872559,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 47,
+      "execution_time_seconds": 0.12604141235351562,
+      "memory_delta_mb": 0.125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 48,
+      "execution_time_seconds": 0.11140894889831543,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 49,
+      "execution_time_seconds": 0.11720466613769531,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 50,
+      "execution_time_seconds": 0.1218874454498291,
+      "memory_delta_mb": 0.1640625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 51,
+      "execution_time_seconds": 0.11472773551940918,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 52,
+      "execution_time_seconds": 0.13039565086364746,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 53,
+      "execution_time_seconds": 0.11816763877868652,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 54,
+      "execution_time_seconds": 0.13381361961364746,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 55,
+      "execution_time_seconds": 0.12783265113830566,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 56,
+      "execution_time_seconds": 0.11822080612182617,
+      "memory_delta_mb": 0.17578125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 57,
+      "execution_time_seconds": 0.14313459396362305,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 58,
+      "execution_time_seconds": 0.11849474906921387,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 59,
+      "execution_time_seconds": 0.17260241508483887,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 60,
+      "execution_time_seconds": 0.16930389404296875,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 61,
+      "execution_time_seconds": 0.11707258224487305,
+      "memory_delta_mb": 0.16796875,
+      "exit_code": 0
+    },
+    {
+      "iteration": 62,
+      "execution_time_seconds": 0.11531257629394531,
+      "memory_delta_mb": 0.16015625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 63,
+      "execution_time_seconds": 0.11556458473205566,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 64,
+      "execution_time_seconds": 0.11496210098266602,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 65,
+      "execution_time_seconds": 0.12578201293945312,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 66,
+      "execution_time_seconds": 0.12793469429016113,
+      "memory_delta_mb": 0.16015625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 67,
+      "execution_time_seconds": 0.11125540733337402,
+      "memory_delta_mb": 0.12890625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 68,
+      "execution_time_seconds": 0.16142892837524414,
+      "memory_delta_mb": 0.12109375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 69,
+      "execution_time_seconds": 0.12552189826965332,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 70,
+      "execution_time_seconds": 0.12334156036376953,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 71,
+      "execution_time_seconds": 0.11117792129516602,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 72,
+      "execution_time_seconds": 0.11185288429260254,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 73,
+      "execution_time_seconds": 0.11609101295471191,
+      "memory_delta_mb": 0.16796875,
+      "exit_code": 0
+    },
+    {
+      "iteration": 74,
+      "execution_time_seconds": 0.1108999252319336,
+      "memory_delta_mb": 0.12890625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 75,
+      "execution_time_seconds": 0.1121976375579834,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 76,
+      "execution_time_seconds": 0.11443281173706055,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 77,
+      "execution_time_seconds": 0.12152266502380371,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 78,
+      "execution_time_seconds": 0.11855244636535645,
+      "memory_delta_mb": 0.16796875,
+      "exit_code": 0
+    },
+    {
+      "iteration": 79,
+      "execution_time_seconds": 0.11781883239746094,
+      "memory_delta_mb": 0.16015625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 80,
+      "execution_time_seconds": 0.11576056480407715,
+      "memory_delta_mb": 0.1328125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 81,
+      "execution_time_seconds": 0.12017345428466797,
+      "memory_delta_mb": 0.1640625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 82,
+      "execution_time_seconds": 0.11834263801574707,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 83,
+      "execution_time_seconds": 0.1282351016998291,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 84,
+      "execution_time_seconds": 0.12188053131103516,
+      "memory_delta_mb": 0.125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 85,
+      "execution_time_seconds": 0.11711001396179199,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 86,
+      "execution_time_seconds": 0.1287858486175537,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 87,
+      "execution_time_seconds": 0.12592172622680664,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 88,
+      "execution_time_seconds": 0.12589168548583984,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 89,
+      "execution_time_seconds": 0.14060688018798828,
+      "memory_delta_mb": 0.13671875,
+      "exit_code": 0
+    },
+    {
+      "iteration": 90,
+      "execution_time_seconds": 0.134918212890625,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 91,
+      "execution_time_seconds": 0.13030409812927246,
+      "memory_delta_mb": 0.16015625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 92,
+      "execution_time_seconds": 0.12957048416137695,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 93,
+      "execution_time_seconds": 0.10779023170471191,
+      "memory_delta_mb": 0.140625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 94,
+      "execution_time_seconds": 0.11951184272766113,
+      "memory_delta_mb": 0.15625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 95,
+      "execution_time_seconds": 0.12087655067443848,
+      "memory_delta_mb": 0.16015625,
+      "exit_code": 0
+    },
+    {
+      "iteration": 96,
+      "execution_time_seconds": 0.13111281394958496,
+      "memory_delta_mb": 0.1484375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 97,
+      "execution_time_seconds": 0.11950993537902832,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 98,
+      "execution_time_seconds": 0.12076210975646973,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    },
+    {
+      "iteration": 99,
+      "execution_time_seconds": 0.12302017211914062,
+      "memory_delta_mb": 0.15234375,
+      "exit_code": 0
+    },
+    {
+      "iteration": 100,
+      "execution_time_seconds": 0.11253905296325684,
+      "memory_delta_mb": 0.14453125,
+      "exit_code": 0
+    }
+  ]
+}

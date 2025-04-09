@@ -1,0 +1,42 @@
+{
+  "framework": "unittest",
+  "test_suite": "calculator_simple",
+  "execution_time": {
+    "mean": 0.12460453510284424,
+    "median": 0.12037074565887451,
+    "stdev": 0.013947067421346366,
+    "min": 0.10779023170471191,
+    "max": 0.17260241508483887,
+    "confidence_interval": [
+      0.12183713434271724,
+      0.12737193586297124
+    ],
+    "confidence_level": 0.95,
+    "bootstrap": {
+      "mean": 0.12462714460372924,
+      "confidence_interval": [
+        0.12214965343475342,
+        0.12746638774871827
+      ]
+    }
+  },
+  "memory_usage": {
+    "mean": 0.1486328125,
+    "median": 0.1484375,
+    "stdev": 0.012469074255770877,
+    "min": 0.0859375,
+    "max": 0.17578125,
+    "confidence_interval": [
+      0.12183713434271724,
+      0.12737193586297124
+    ],
+    "confidence_level": 0.95,
+    "bootstrap": {
+      "mean": 0.148600234375,
+      "confidence_interval": [
+        0.146171875,
+        0.1508984375
+      ]
+    }
+  }
+}
