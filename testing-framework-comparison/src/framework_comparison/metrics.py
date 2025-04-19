@@ -46,8 +46,24 @@ class PerformanceMetrics:
             "runs": [],
         }
 
+        # Record test framework version
+        try:
+            if framework_name.lower() == 'pytest':
+                import pytest
+                fw_version = pytest.__version__
+            elif framework_name.lower() == 'unittest':
+                fw_version = f"stdlib ({platform.python_version()})"
+            else:
+                from importlib.metadata import version as _md_version
+                fw_version = _md_version(framework_name)
+        except Exception:
+            fw_version = 'unknown'
+        self.results['metadata']['test_framework_version'] = fw_version
+
     def measure_performance(self, command, iterations=10):
         """Measure execution time and memory usage for a test command."""
+        # Announce framework version
+        print(f"Using {self.framework} version: {self.results['metadata']['test_framework_version']}")
         print(
             f"Measuring {self.framework} on {self.test_suite} ({iterations} iterations)..."
         )
@@ -92,6 +108,8 @@ class PerformanceMetrics:
         self, command_list, iterations=10, warmup_runs=5
     ):
         """Measure execution time and memory usage using subprocess with warmup runs."""
+        # Announce framework version
+        print(f"Using {self.framework} version: {self.results['metadata']['test_framework_version']}")
         print(f"Performing {warmup_runs} warmup runs...")
 
         # Execute warmup runs without recording metrics
@@ -205,67 +223,21 @@ class PerformanceMetrics:
         return {"mean": statistics.mean(results), "confidence_interval": (lower, upper)}
 
     def get_summary(self):
-        """Compute summary statistics with confidence intervals."""
-        times = [run["execution_time_seconds"] for run in self.results["runs"]]
-        memories = [run.get("peak_memory_mb", run.get("memory_delta_mb")) for run in self.results["runs"]]
-
-        # Calculate 95% confidence interval
-        confidence = 0.95
-        n = len(times)
-        mean = statistics.mean(times)
-        stdev = statistics.stdev(times) if n > 1 else 0
-
-        # t-distribution for small sample sizes
-        t_value = stats.t.ppf((1 + confidence) / 2, n - 1)
-        margin = t_value * stdev / (n**0.5)
-
-        # Add bootstrap statistics
-        bootstrap_time = self.bootstrap_stats(times, statistics.mean)
-        bootstrap_memory = self.bootstrap_stats(memories, statistics.mean)
-
-        summary = {
+        """Return raw per-iteration data only (no statistics or bootstrap)."""
+        return {
+            "metadata": self.results.get("metadata", {}),
             "framework": self.framework,
             "test_suite": self.test_suite,
-            "execution_time": {
-                "mean": statistics.mean(times),
-                "median": statistics.median(times),
-                "stdev": statistics.stdev(times) if len(times) > 1 else 0,
-                "min": min(times),
-                "max": max(times),
-                "confidence_interval": (mean - margin, mean + margin),
-                "confidence_level": confidence,
-                "bootstrap": bootstrap_time,
-            },
-            "memory_usage": {
-                "mean": statistics.mean(memories),
-                "median": statistics.median(memories),
-                "stdev": statistics.stdev(memories) if len(memories) > 1 else 0,
-                "min": min(memories),
-                "max": max(memories),
-                "confidence_interval": (mean - margin, mean + margin),
-                "confidence_level": confidence,
-                "bootstrap": bootstrap_memory,
-            },
+            "runs": self.results["runs"],
         }
 
-        return summary
-
     def save_results(self):
-        """Save raw results and summary to JSON files."""
-        # Save raw results
-        results_file = self.output_dir / f"{self.framework}_{self.test_suite}_raw.json"
-        with open(results_file, "w") as f:
-            json.dump(self.results, f, indent=2)
-
-        # Save summary
+        """Save summary (with raw runs) to a single JSON file per framework."""
         summary = self.get_summary()
-        summary_file = (
-            self.output_dir / f"{self.framework}_{self.test_suite}_summary.json"
-        )
-        with open(summary_file, "w") as f:
+        output_file = self.output_dir / f"{self.framework}_{self.test_suite}.json"
+        with open(output_file, "w") as f:
             json.dump(summary, f, indent=2)
-
-        return results_file, summary_file
+        return output_file
     
     def detect_test_dependencies(self, test_file):
         """Detect and return required dependencies for a test file"""
