@@ -1,0 +1,117 @@
+{
+  "metadata": {
+    "timestamp": "2025-04-19T13:04:07.111796",
+    "platform": "macOS-15.4.1-arm64-arm-64bit-Mach-O",
+    "machine_type": "arm64",
+    "processor": "arm",
+    "cpu_count_logical": 12,
+    "cpu_count_physical": 12,
+    "total_memory_mb": 24576.0,
+    "python_version": "3.13.2",
+    "test_framework_version": "8.3.5"
+  },
+  "framework": "pytest",
+  "test_suite": "fibonacci",
+  "runs": [
+    {
+      "iteration": 1,
+      "execution_time_seconds": 0.0778958797454834,
+      "min_memory_mb": 0.15625,
+      "peak_memory_mb": 25.859375,
+      "cpu_user_time_seconds": 0.051623876,
+      "cpu_system_time_seconds": 0.010247583,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 2,
+      "execution_time_seconds": 0.10639286041259766,
+      "min_memory_mb": 0.203125,
+      "peak_memory_mb": 25.71875,
+      "cpu_user_time_seconds": 0.07135762699999999,
+      "cpu_system_time_seconds": 0.014604124999999999,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 3,
+      "execution_time_seconds": 0.10680794715881348,
+      "min_memory_mb": 0.203125,
+      "peak_memory_mb": 26.375,
+      "cpu_user_time_seconds": 0.073567455,
+      "cpu_system_time_seconds": 0.013403624999999999,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 4,
+      "execution_time_seconds": 0.10415983200073242,
+      "min_memory_mb": 0.203125,
+      "peak_memory_mb": 26.453125,
+      "cpu_user_time_seconds": 0.07279846200000001,
+      "cpu_system_time_seconds": 0.014013999999999999,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 5,
+      "execution_time_seconds": 0.10377717018127441,
+      "min_memory_mb": 0.171875,
+      "peak_memory_mb": 26.328125,
+      "cpu_user_time_seconds": 0.06907954,
+      "cpu_system_time_seconds": 0.013318083,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 6,
+      "execution_time_seconds": 0.10403299331665039,
+      "min_memory_mb": 0.203125,
+      "peak_memory_mb": 26.25,
+      "cpu_user_time_seconds": 0.072239705,
+      "cpu_system_time_seconds": 0.013749709,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 7,
+      "execution_time_seconds": 0.10644102096557617,
+      "min_memory_mb": 0.171875,
+      "peak_memory_mb": 26.28125,
+      "cpu_user_time_seconds": 0.073701747,
+      "cpu_system_time_seconds": 0.013062084,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 8,
+      "execution_time_seconds": 0.10184502601623535,
+      "min_memory_mb": 0.203125,
+      "peak_memory_mb": 26.53125,
+      "cpu_user_time_seconds": 0.066827834,
+      "cpu_system_time_seconds": 0.014256458000000001,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 9,
+      "execution_time_seconds": 0.10017204284667969,
+      "min_memory_mb": 0.15625,
+      "peak_memory_mb": 26.078125,
+      "cpu_user_time_seconds": 0.07078912700000001,
+      "cpu_system_time_seconds": 0.012739374999999999,
+      "thread_count": 1,
+      "exit_code": 0
+    },
+    {
+      "iteration": 10,
+      "execution_time_seconds": 0.10599780082702637,
+      "min_memory_mb": 0.1875,
+      "peak_memory_mb": 27.546875,
+      "cpu_user_time_seconds": 0.062121502,
+      "cpu_system_time_seconds": 0.017067917,
+      "thread_count": 1,
+      "exit_code": 0
+    }
+  ]
+}

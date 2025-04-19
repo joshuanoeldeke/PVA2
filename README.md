@@ -28,16 +28,21 @@ PVA2/
 │   └── TestMigrationsInPy-main/
 ├── scripts/
 │   ├── run_calculator_benchmark.py
-│   └── run_migration_benchmarks.py
+│   ├── run_migration_benchmarks.py
+│   └── run_benchmark.py
 ├── results/
 │   ├── pytest_calculator_simple.json
 │   └── unittest_calculator_simple.json
 ├── src/
 │   ├── examples/
-│   │   └── calculator/
-│   │       ├── calculator.py
-│   │       ├── test_calculator_pytest.py
-│   │       └── test_calculator_unittest.py
+│   │   ├── calculator/
+│   │   │   ├── calculator.py  # code file for example suite
+│   │   │   ├── test_calculator_unittest.py  # unittest for calculator
+│   │   │   └── test_calculator_pytest.py    # pytest for calculator
+│   │   └── another_example/                 # additional example suites follow same pattern
+│   │       ├── another_example.py
+│   │       ├── test_another_example_unittest.py
+│   │       └── test_another_example_pytest.py
 │   └── framework_comparison/
 │       ├── __init__.py
 │       ├── metrics.py
@@ -92,6 +97,32 @@ python scripts/run_migration_benchmarks.py
 
 You may need to update the dataset path in the script.
 
+### 3. Generic Benchmarking CLI
+
+You can now benchmark **any** example suite directory containing a code file and framework-specific test files using a single command.
+
+```bash
+python scripts/run_benchmark.py --path src/examples [options]
+```
+
+Common options:
+
+- `--path, -p` : Directory containing example subdirectories (required), each with a code file and two test files named `test_<name>_unittest.py` and `test_<name>_pytest.py`
+- `--frameworks, -f` : List of frameworks to benchmark (default: `unittest pytest`)
+- `--iterations, -n` : Number of measurement iterations per suite (default: 10)
+- `--warmup, -w` : Number of warmup runs before measurement (default: 5)
+- `--output-dir, -o` : Directory to save JSON result files (default: `results/`)
+
+Example: benchmark all example suites under `src/examples` with only pytest for 5 iterations:
+
+```bash
+python scripts/run_benchmark.py \
+  --path src/examples \
+  --frameworks pytest \
+  --iterations 5 \
+  --warmup 2
+```
+
 ---
 
 ## How to Extend
@@ -133,5 +164,3 @@ For questions, suggestions, or contributions, please open an issue or submit a p
 ---
 
 **This project aims to bridge the gap between developer experience and objective performance data, empowering the Python testing community with actionable insights.**
-
-Sources
