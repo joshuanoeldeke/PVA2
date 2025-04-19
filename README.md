@@ -1,7 +1,3 @@
-Absolutely! Here’s a comprehensive `README.md` draft for your project, summarizing the intentions, methodology, structure, and usage, as discussed throughout our conversation.
-
----
-
 # Python Testing Framework Comparison
 
 ## Overview
@@ -55,8 +51,9 @@ testing-framework-comparison/
 - **Warmup Runs:** Each benchmark includes several warmup runs to eliminate cold-start bias.
 - **Isolated Execution:** Each test run is executed in a subprocess to isolate resource usage.
 - **Multiple Iterations:** Benchmarks are run for many iterations (default: 100) for statistical reliability.
-- **Metrics Collected:** Execution time and memory usage (delta) are measured for each run.
-- **Statistical Analysis:** Mean, median, standard deviation, confidence intervals, and bootstrap resampling are used to summarize and compare results.
+- **Metrics Collected:** Execution time, memory usage (minimum & peak), CPU user/system times, and thread count for each run.
+- **Metadata Recorded:** Timestamp, host OS & machine specs, CPU & total RAM, Python version, and test framework version.
+- **Data Output:** Raw per-iteration data saved as a single JSON file per framework (no built-in statistical analysis).
 - **Universal Comparison:** The tool can discover and compare test suites in any project structure, and can specifically analyze before/after migration pairs from datasets like TestMigrationsInPy.
 
 ---

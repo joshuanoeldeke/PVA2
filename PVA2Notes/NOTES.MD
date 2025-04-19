@@ -1,8 +1,0 @@
-Abstract Alt:
-
-This paper explores the performance differences between two popular Python testing frameworks, pytest and unittest. By focusing on key metrics such as execution time, memory usage, and scalability, the study aims to provide developers with actionable insights for selecting the most suitable framework for their projects. All experiments are conducted in a controlled environment to ensure reproducibility and fairness. The results contribute to a deeper understanding of how these frameworks perform under varying conditions, offering practical guidance for software testing in Python
-
-
-Abstract Neu (mit Verweis auf Barbosa und Hora):
-
-This paper builds upon prior research into Python testing framework migration, particularly the work of Barbosa and Hora on "How and Why Developers Migrate Python Tests", by exploring the performance differences between pytest and unittest. While earlier studies have focused on migration processes and developer motivations, this study emphasizes key technical metrics—execution time, memory usage, and scalability—to provide actionable insights for developers choosing the most suitable framework for their projects. By conducting experiments in a controlled environment, the study ensures reproducibility and fairness in its comparisons. The findings not only deepen understanding of how these frameworks perform under varying conditions but also offer practical guidance for optimizing software testing in Python.
