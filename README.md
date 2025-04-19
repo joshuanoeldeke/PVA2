@@ -20,8 +20,18 @@ The project is inspired by and complements the research of Barbosa and Hora, _�
 
 ## Project Structure
 
-```
-testing-framework-comparison/
+```plaintext
+PVA2/
+├── README.md
+├── requirements.txt
+├── datasets/
+│   └── TestMigrationsInPy-main/
+├── scripts/
+│   ├── run_calculator_benchmark.py
+│   └── run_migration_benchmarks.py
+├── results/
+│   ├── pytest_calculator_simple.json
+│   └── unittest_calculator_simple.json
 ├── src/
 │   ├── examples/
 │   │   └── calculator/
@@ -30,18 +40,10 @@ testing-framework-comparison/
 │   │       └── test_calculator_unittest.py
 │   └── framework_comparison/
 │       ├── __init__.py
-│       ├── metrics.py          # Core benchmarking logic
-│       ├── discovery.py        # Dataset/project test discovery
-│       └── reporting.py        # (Optional) Reporting/visualization
-├── datasets/
-│   └── TestMigrationsInPy/     # Real-world migration dataset (optional)
-├── scripts/
-│   ├── run_calculator_benchmark.py
-│   └── run_migration_benchmarks.py
-├── results/                    # Benchmark results (JSON, reports)
-├── tests/                      # Unit tests for the benchmarking tool
-├── README.md
-└── requirements.txt
+│       ├── metrics.py
+│       ├── discovery.py
+│       └── reporting.py
+└── tests/
 ```
 
 ---
