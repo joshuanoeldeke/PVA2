@@ -1,19 +1,16 @@
+import os
 from pathlib import Path
 
 class TestDiscovery:
-    """Discover and prepare test files for comparison."""
-
     def discover_migration_pairs(self, dataset_path):
-        """Find before/after test pairs in TestMigrationsInPy format."""
+        """Discover before/after migration pairs in TestMigrationsInPy dataset."""
         migration_pairs = []
-
-        for project_dir in Path(dataset_path).glob("projects/*"):
-            for diff_dir in project_dir.glob("diff"):
-                # Find matching before/after files
-                before_files = list(diff_dir.glob("*-before-*.py"))
-                for before in before_files:
-                    after = diff_dir / before.name.replace("-before-", "-after-")
-                    if after.exists():
-                        migration_pairs.append((before, after))
-
+        
+        for project_dir in Path(dataset_path).glob("*/diff"):
+            before_files = list(project_dir.glob("*-before-*.py"))
+            for before_file in before_files:
+                after_file = project_dir / before_file.name.replace("-before-", "-after-")
+                if after_file.exists():
+                    migration_pairs.append((str(before_file), str(after_file)))
+        
         return migration_pairs

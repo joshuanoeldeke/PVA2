@@ -5,7 +5,7 @@ import os
 
 # Add the tests directory to the path to find example_test_module
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from example_test_module import Calculator
+from calculator import Calculator
 
 
 @pytest.fixture
