@@ -21,19 +21,27 @@ def prepare_migration_suites(dataset_path, output_root, clone_root):
             info_file = mig_dir / 'output.info'
             if not diff_dir.exists() or not info_file.exists():
                 continue
-            # parse migration info
-            # read output.info which contains JSON-style key-values (without enclosing braces)
-            raw = info_file.read_text()
-            # ensure valid JSON object
-            wrapped = raw.strip()
-            if not wrapped.startswith('{'):
-                wrapped = '{' + wrapped
-            if not wrapped.endswith('}'):
-                wrapped = wrapped + '}'
-            # remove any trailing commas before closing brace
-            import re
-            wrapped = re.sub(r',\s*}', '}', wrapped)
-            info = json.loads(wrapped)
+            # parse migration info by manually constructing a JSON object
+            try:
+                raw = info_file.read_text()
+                lines = []
+                for ln in raw.splitlines():
+                    ln = ln.strip().rstrip(',')
+                    if not ln or ':' not in ln:
+                        continue
+                    key, val = ln.split(':', 1)
+                    key = key.strip()
+                    val = val.strip()
+                    # treat empty/missing values as null
+                    if not val:
+                        val = 'null'
+                    lines.append(f"{key}: {val}")
+                json_str = '{' + ','.join(lines) + '}'
+                info = json.loads(json_str)
+            except Exception as e:
+                print(f"Warning: could not parse output.info in {mig_dir}, skipping: {e}")
+                print(f"Raw content:\n{raw}")
+                continue
             commit_hash = info['commit_hash']
             commit_link = info['commit_link']
             project_name = project_dir.name
@@ -42,12 +50,29 @@ def prepare_migration_suites(dataset_path, output_root, clone_root):
             suite_name_after = f"{project_name}_{mig_id}_after"
             out_before = output_root / suite_name_before
             out_after = output_root / suite_name_after
-            # clone repo if needed
+            # clone repo shallowly and fetch only the target commit
             repo_url = commit_link.split('/commit/')[0] + '.git'
             local_repo = clone_root / project_name
             if not local_repo.exists():
-                print(f"Cloning {repo_url}...")
-                subprocess.run(["git", "clone", "--quiet", repo_url, str(local_repo)], check=True)
+                print(f"Shallow cloning {repo_url} without full history...")
+                try:
+                    # clone with no checkout and minimal history
+                    subprocess.run([
+                        "git", "clone", "--depth", "1", "--no-checkout",
+                        repo_url, str(local_repo)
+                    ], check=True)
+                    # fetch the specific migration commit
+                    subprocess.run([
+                        "git", "-C", str(local_repo), "fetch",
+                        "--depth", "1", "origin", commit_hash
+                    ], check=True)
+                    # check out the commit
+                    subprocess.run([
+                        "git", "-C", str(local_repo), "checkout", commit_hash
+                    ], check=True)
+                except subprocess.CalledProcessError:
+                    print(f"Warning: failed to shallow clone {project_name}, skipping this project.")
+                    continue
             # export before state (parent commit)
             parent_hash = commit_hash + '^'
             for state, out_dir, label in [
