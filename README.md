@@ -76,51 +76,30 @@ PVA2/
 
 ## Usage
 
-### 1. Calculator Example
-
-Run the benchmark on the simple calculator example:
+Run any example suite(s) under a directory using the generic benchmarking CLI:
 
 ```bash
-cd testing-framework-comparison
-python scripts/run_calculator_benchmark.py
+python scripts/run_benchmark.py --path <examples_dir> [options]
 ```
 
-Results will be saved in the `results/` directory.
+Options:
+- `--path, -p`: Root directory containing example subdirectories or a single suite (required).
+- `--frameworks, -f`: List of test frameworks to benchmark (default: `unittest pytest`).
+- `--iterations, -n`: Number of measurement iterations per suite (default: `10`).
+- `--warmup, -w`: Number of warmup runs before measurement (default: `5`).
+- `--output-dir, -o`: Directory to save result JSON files (default: `results/`).
 
-### 2. Migration Dataset (TestMigrationsInPy)
-
-Run the benchmark on real-world migration pairs:
-
-```bash
-python scripts/run_migration_benchmarks.py
-```
-
-You may need to update the dataset path in the script.
-
-### 3. Generic Benchmarking CLI
-
-You can now benchmark **any** example suite directory containing a code file and framework-specific test files using a single command.
+Examples:
 
 ```bash
-python scripts/run_benchmark.py --path src/examples [options]
-```
+# Benchmark all example suites under src/examples
+python scripts/run_benchmark.py -p src/examples
 
-Common options:
+# Benchmark only the pytest framework for calculator suite
+python scripts/run_benchmark.py -p src/examples/calculator -f pytest -n 5 -w 2
 
-- `--path, -p` : Directory containing example subdirectories (required), each with a code file and two test files named `test_<name>_unittest.py` and `test_<name>_pytest.py`
-- `--frameworks, -f` : List of frameworks to benchmark (default: `unittest pytest`)
-- `--iterations, -n` : Number of measurement iterations per suite (default: 10)
-- `--warmup, -w` : Number of warmup runs before measurement (default: 5)
-- `--output-dir, -o` : Directory to save JSON result files (default: `results/`)
-
-Example: benchmark all example suites under `src/examples` with only pytest for 5 iterations:
-
-```bash
-python scripts/run_benchmark.py \
-  --path src/examples \
-  --frameworks pytest \
-  --iterations 5 \
-  --warmup 2
+# Benchmark a single suite directory directly
+python scripts/run_benchmark.py -p src/examples/fibonacci
 ```
 
 ---
