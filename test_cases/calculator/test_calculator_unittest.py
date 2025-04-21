@@ -3,9 +3,9 @@ import unittest
 import sys
 import os
 
-# Add the tests directory to the path to find example_test_module
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from calculator import Calculator
+# Add the parent directory of calculator (test_cases) to the path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+from calculator.calculator import Calculator
 
 
 class TestCalculator(unittest.TestCase):
