@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import argparse
-from src.framework_comparison.metrics import PerformanceMetrics
+from framework_comparison.metrics import PerformanceMetrics
 
 def main():
     parser = argparse.ArgumentParser(description="Benchmark example code suites against test frameworks")

@@ -23,8 +23,8 @@ class PerformanceMetrics:
 
         # If no output_dir is specified, create a 'results' directory at the project root
         if output_dir is None:
-            # Navigate up one level from the 'code' directory to the project root
-            base_dir = Path(__file__).resolve().parent.parent.parent
+            # Navigate up two levels from this file to the project root
+            base_dir = Path(__file__).resolve().parent.parent
             self.output_dir = base_dir / "results"
         else:
             self.output_dir = Path(output_dir)
@@ -59,50 +59,6 @@ class PerformanceMetrics:
         except Exception:
             fw_version = 'unknown'
         self.results['metadata']['test_framework_version'] = fw_version
-
-    def measure_performance(self, command, iterations=10):
-        """Measure execution time and memory usage for a test command."""
-        # Announce framework version
-        print(f"Using {self.framework} version: {self.results['metadata']['test_framework_version']}")
-        print(
-            f"Measuring {self.framework} on {self.test_suite} ({iterations} iterations)..."
-        )
-
-        for i in range(iterations):
-            # Clear memory before each run
-            gc.collect()
-
-            # Record starting metrics
-            process = psutil.Process(os.getpid())
-            start_memory = process.memory_info().rss / 1024 / 1024  # MB
-            start_time = time.time()
-
-            # Execute the test command
-            exit_code = os.system(command)
-
-            # Record ending metrics
-            end_time = time.time()
-            end_memory = process.memory_info().rss / 1024 / 1024  # MB
-
-            # Calculate metrics
-            execution_time = end_time - start_time
-            memory_used = end_memory - start_memory
-
-            # Store results
-            run_data = {
-                "iteration": i + 1,
-                "execution_time_seconds": execution_time,
-                "peak_memory_mb": memory_used,
-                "exit_code": exit_code,
-            }
-            self.results["runs"].append(run_data)
-
-            print(
-                f"  Run {i + 1}: Time: {execution_time:.2f}s, Peak Memory: {memory_used:.2f}MB"
-            )
-
-            # Wait between runs to stabilize system
-            time.sleep(1)
 
     def measure_performance_subprocess(
         self, command_list, iterations=10, warmup_runs=5
@@ -204,24 +160,6 @@ class PerformanceMetrics:
             # Wait between runs to stabilize system
             time.sleep(1)
 
-    def bootstrap_stats(self, data, statistic_func, num_samples=1000):
-        """Perform bootstrap resampling on the provided data."""
-
-        n = len(data)
-        results = []
-
-        for _ in range(num_samples):
-            # Sample with replacement
-            sample = [data[random.randint(0, n - 1)] for _ in range(n)]
-            results.append(statistic_func(sample))
-
-        # Calculate 95% confidence interval
-        results.sort()
-        lower = results[int(0.025 * num_samples)]
-        upper = results[int(0.975 * num_samples)]
-
-        return {"mean": statistics.mean(results), "confidence_interval": (lower, upper)}
-
     def get_summary(self):
         """Return raw per-iteration data only (no statistics or bootstrap)."""
         return {
@@ -234,7 +172,7 @@ class PerformanceMetrics:
     def save_results(self):
         """Save summary (with raw runs) to a single JSON file per framework."""
         summary = self.get_summary()
-        output_file = self.output_dir / f"{self.framework}_{self.test_suite}.json"
+        output_file = self.output_dir / f"{self.test_suite}_{self.framework}.json"
         with open(output_file, "w") as f:
             json.dump(summary, f, indent=2)
         return output_file

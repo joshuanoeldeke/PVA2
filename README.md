@@ -25,30 +25,19 @@ PVA2/
 ├── README.md
 ├── requirements.txt
 ├── datasets/
-│   └── TestMigrationsInPy-main/
+│   └── TestMigrationsInPy-main/  # optional datasets directory
+├── framework_comparison/
+│   ├── __init__.py
+│   ├── discovery.py
+│   ├── metrics.py
+│   └── reporting.py
+├── results/                      # performance result JSON files
 ├── scripts/
-│   ├── run_calculator_benchmark.py
-│   ├── run_migration_benchmarks.py
-│   └── run_benchmark.py
-├── results/
-│   ├── pytest_calculator_simple.json
-│   └── unittest_calculator_simple.json
-├── src/
-│   ├── examples/
-│   │   ├── calculator/
-│   │   │   ├── calculator.py  # code file for example suite
-│   │   │   ├── test_calculator_unittest.py  # unittest for calculator
-│   │   │   └── test_calculator_pytest.py    # pytest for calculator
-│   │   └── another_example/                 # additional example suites follow same pattern
-│   │       ├── another_example.py
-│   │       ├── test_another_example_unittest.py
-│   │       └── test_another_example_pytest.py
-│   └── framework_comparison/
-│       ├── __init__.py
-│       ├── metrics.py
-│       ├── discovery.py
-│       └── reporting.py
-└── tests/
+│   └── run_benchmark.py         # generic benchmarking CLI
+├── test_cases/                   # example test suites
+│   ├── calculator/
+│   └── fibonacci/
+└── tests/                        # additional tests or integration suites
 ```
 
 ---
@@ -92,21 +81,21 @@ Options:
 Examples:
 
 ```bash
-# Benchmark all example suites under src/examples
-python scripts/run_benchmark.py -p src/examples
+# Benchmark all example suites under test_cases
+python scripts/run_benchmark.py -p test_cases
 
-# Benchmark only the pytest framework for calculator suite
-python scripts/run_benchmark.py -p src/examples/calculator -f pytest -n 5 -w 2
+# Benchmark only the pytest framework for the calculator suite
+python scripts/run_benchmark.py -p test_cases/calculator -f pytest -n 5 -w 2
 
-# Benchmark a single suite directory directly
-python scripts/run_benchmark.py -p src/examples/fibonacci
+# Benchmark a single suite directory directly (fibonacci example)
+python scripts/run_benchmark.py -p test_cases/fibonacci
 ```
 
 ---
 
 ## How to Extend
 
-- Add new test suites to `src/examples/` or point the tool at any project directory.
+- Add new test suites to `test_cases/` or point the tool at any project directory.
 - Add new datasets to the `datasets/` directory and update the discovery logic as needed.
 - Modify `metrics.py` to collect additional metrics (e.g., peak memory, CPU usage).
 - Use or extend `reporting.py` for richer result visualization.
