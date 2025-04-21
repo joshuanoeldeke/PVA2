@@ -24,10 +24,7 @@ The project is inspired by and complements the research of Barbosa and Hora, _�
 PVA2/
 ├── README.md
 ├── requirements.txt
-├── datasets/
-│   └── TestMigrationsInPy-main/  # optional datasets directory
 ├── framework_comparison/
-│   ├── __init__.py
 │   ├── discovery.py
 │   ├── metrics.py
 │   └── reporting.py
@@ -37,7 +34,6 @@ PVA2/
 ├── test_cases/                   # example test suites
 │   ├── calculator/
 │   └── fibonacci/
-└── tests/                        # additional tests or integration suites
 ```
 
 ---
