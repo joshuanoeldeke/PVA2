@@ -25,7 +25,7 @@ class PerformanceMetrics:
         if output_dir is None:
             # Navigate up two levels from this file to the project root
             base_dir = Path(__file__).resolve().parent.parent
-            self.output_dir = base_dir / "results"
+            self.output_dir = base_dir / "results" / "raw_metrics"
         else:
             self.output_dir = Path(output_dir)
 
