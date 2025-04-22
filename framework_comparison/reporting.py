@@ -109,7 +109,7 @@ def animate_speed_comparison(summary_df, output_dir, frames=800):
     frameworks = summary_df['framework'].tolist()
     mean_times = summary_df['mean'].tolist()
     # Compute normalized speeds
-    speeds = [1.0 / t for t in mean_times]
+    speeds = [2.0 / t for t in mean_times]
     max_speed = max(speeds)
     norm_speeds = [s / max_speed for s in speeds]
     # Setup figure with white background and walls
