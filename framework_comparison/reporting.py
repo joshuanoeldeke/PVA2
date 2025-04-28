@@ -180,7 +180,7 @@ def generate_reports(results_dir="results", report_dir="reports"):
     plot_mean_execution_time(summary, report_dir)
     plot_boxplots(df, report_dir)
     # Create speed comparison GIF
-    animate_speed_comparison(summary, report_dir)
+    #animate_speed_comparison(summary, report_dir)
     print(f"Reports generated in {report_dir}")
 
 
