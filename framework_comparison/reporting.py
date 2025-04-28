@@ -101,7 +101,7 @@ def plot_boxplots(df, output_dir):
         plt.tight_layout()
         out = Path(output_dir) / f"boxplot_{suite}.png"
         plt.savefig(out)
-        plt.close()
+        plt.close
 
 
 # def animate_speed_comparison(summary_df, output_dir, frames=120):
@@ -187,8 +187,8 @@ def generate_reports(results_dir="results", report_dir="reports"):
 if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser(description="Generate performance reports from raw results")
-    parser.add_argument("--results-dir", "-r", default="results",
-                        help="Directory containing raw JSON result files")
+    parser.add_argument("--results-dir", "-r", default="results/raw_metrics",
+                        help="Directory containing raw JSON result files (defaults to results/raw_metrics)")
     parser.add_argument("--report-dir", "-o", default="results/reports",
                         help="Output directory for reports and plots")
     args = parser.parse_args()

@@ -9,16 +9,16 @@ from framework_comparison.metrics import PerformanceMetrics
 
 def main():
     parser = argparse.ArgumentParser(description="Benchmark example code suites against test frameworks")
-    parser.add_argument("--path", "-p", required=True,
-                        help="Root directory containing example code subdirectories")
+    parser.add_argument("--path", "-p", default="test_cases",
+                        help="Root directory containing example code subdirectories (defaults to 'test_cases')")
     parser.add_argument("--frameworks", "-f", nargs='+', default=["unittest", "pytest"],
                         help="List of test frameworks to benchmark (e.g. unittest pytest)")
     parser.add_argument("--iterations", "-n", type=int, default=10,
                         help="Number of measurement iterations per suite")
     parser.add_argument("--warmup", "-w", type=int, default=5,
                         help="Number of warmup runs before measurement")
-    parser.add_argument("--output-dir", "-o", default=None,
-                        help="Directory to save result JSON files")
+    parser.add_argument("--output-dir", "-o", default="results/raw_metrics",
+                        help="Directory to save result JSON files (defaults to results/raw_metrics)")
     args = parser.parse_args()
 
     root = Path(args.path)
