@@ -104,61 +104,69 @@ def plot_boxplots(df, output_dir):
         plt.close()
 
 
-def animate_speed_comparison(summary_df, output_dir, frames=800):
-    """Create and save a GIF showing balls bouncing at speeds inverse to mean execution time, with labels."""
-    frameworks = summary_df['framework'].tolist()
-    mean_times = summary_df['mean'].tolist()
-    # Compute normalized speeds
-    speeds = [2.0 / t for t in mean_times]
-    max_speed = max(speeds)
-    norm_speeds = [s / max_speed for s in speeds]
-    # Setup figure with white background and walls
-    fig, ax = plt.subplots(figsize=(6, len(frameworks) * 1), dpi=100)
-    fig.patch.set_facecolor('white')
-    ax.set_xlim(0, 1)
-    ax.set_ylim(0, len(frameworks) + 1)
-    ax.set_aspect('equal')
-    ax.axis('off')
-    # draw left/right walls
-    wall_opts = dict(colors='gray', linestyles='--', linewidth=1, alpha=0.3)
-    ax.vlines([0.1, 0.9], ymin=0, ymax=len(frameworks)+1, **wall_opts)
-    ax.set_title('Framework Speed Comparison', pad=10)
-    # assign colors
-    colors = sns.color_palette('tab10', n_colors=len(frameworks))
-    # Create circle and text artists
-    circles, labels = [], []
-    x_off = 0.05
-    radius = 0.08  # smaller radius for aesthetic spacing
-    for idx, (fw, color) in enumerate(zip(frameworks, colors), start=1):
-        y = idx
-        circ = plt.Circle((0.1, y), radius, color=color, ec='black', lw=1)
-        ax.add_patch(circ)
-        text = ax.text(0.1 + x_off, y, fw,
-                       va='center', ha='left', fontsize=9, color=color)
-        circles.append(circ)
-        labels.append(text)
-    # Animation update
-    def update(frame):
-        artists = []
-        for i, circ in enumerate(circles):
-            # smooth bounce using cosine easing
-            frac = (frame * norm_speeds[i] / frames) % 1
-            offset = 0.5 * (1 - np.cos(2 * np.pi * frac))
-            x = 0.1 + 0.8 * offset
-            y = i + 1
-            circ.center = (x, y)
-            labels[i].set_position((x + x_off, y))
-            artists.extend([circ, labels[i]])
-        return artists
-    # Create and save animation
-    ani = animation.FuncAnimation(fig, update, frames=frames, blit=True)
-    out = Path(output_dir) / 'speed_comparison.gif'
-    # create PillowWriter (loop parameter passed to save for GIF)
-    writer = PillowWriter(fps=30)
-    # save with loop=0 for infinite repetition
-    ani.save(out, writer=writer)
-    plt.close(fig)
-    return out
+# def animate_speed_comparison(summary_df, output_dir, frames=120):
+#     """Create and save a GIF showing balls bouncing at speeds inverse to mean execution time, with labels."""
+#     frameworks = summary_df['framework'].tolist()
+#     mean_times = summary_df['mean'].tolist()
+#     # Compute normalized speeds and apply speed multiplier
+#     speed_factor = 2.0  # increase this to speed up ball movement
+#     speeds = [1.0 / t for t in mean_times]
+#     max_speed = max(speeds)
+#     norm_speeds = [s / max_speed * speed_factor for s in speeds]
+#     # Setup figure with white background and walls
+#     # set to 1080p (16:9) resolution
+#     fig, ax = plt.subplots(figsize=(19.2, 10.8), dpi=100)
+#     fig.patch.set_facecolor('white')
+#     ax.set_xlim(0, 1)
+#     ax.set_ylim(0, len(frameworks) + 1)
+#     ax.set_aspect('equal')
+#     ax.axis('off')
+#     # expand axes to full figure to remove white margins
+#     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+#     ax.margins(x=0)
+#     # expand axis to fill entire figure (remove all white borders)
+#     ax.set_position([0, 0, 1, 1])
+#     # draw left/right walls at ball bounce limits
+#     radius = 0.08  # must match circle radius
+#     wall_opts = dict(colors='gray', linestyles='--', linewidth=1, alpha=0.3)
+#     ax.vlines([radius, 1 - radius], ymin=0, ymax=len(frameworks)+1, **wall_opts)
+#     ax.set_title('Framework Speed Comparison', pad=10)
+#     # assign colors
+#     colors = sns.color_palette('tab10', n_colors=len(frameworks))
+#     # Create circle and text artists
+#     circles, labels = [], []
+#     x_off = 0.05
+#     for idx, (fw, color) in enumerate(zip(frameworks, colors), start=1):
+#         y = idx
+#         circ = plt.Circle((0.1, y), radius, color=color, ec='black', lw=1)
+#         ax.add_patch(circ)
+#         text = ax.text(0.1 + x_off, y, fw,
+#                        va='center', ha='left', fontsize=9, color=color)
+#         circles.append(circ)
+#         labels.append(text)
+#     # Animation update
+#     def update(frame):
+#         artists = []
+#         for i, circ in enumerate(circles):
+#             # smooth bounce across full width
+#             frac = (frame * norm_speeds[i] / frames) % 1
+#             offset = 0.5 * (1 - np.cos(2 * np.pi * frac))  # 0→1→0
+#             x = radius + (1 - 2 * radius) * offset
+#             y = i + 1
+#             circ.center = (x, y)
+#             labels[i].set_position((x + x_off, y))
+#             artists.extend([circ, labels[i]])
+#         return artists
+#     # Create and save animation
+#     ani = animation.FuncAnimation(fig, update, frames=frames, blit=True)
+#     out = Path(output_dir) / 'speed_comparison.gif'
+#     # create PillowWriter for GIF
+#     writer = PillowWriter(fps=30)
+#     # save with tight bounding box and no padding to eliminate borders
+#     ani.save(out, writer=writer, dpi=100,
+#              savefig_kwargs={'bbox_inches':'tight','pad_inches':0})
+#     plt.close(fig)
+#     return out
 
 
 def generate_reports(results_dir="results", report_dir="reports"):
