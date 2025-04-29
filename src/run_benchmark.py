@@ -5,7 +5,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import argparse
-from framework_comparison.metrics import PerformanceMetrics
+from src.metrics import PerformanceMetrics
 
 def main():
     parser = argparse.ArgumentParser(description="Benchmark example code suites against test frameworks")
@@ -48,7 +48,8 @@ def main():
             # ensure examples parent dir is on PYTHONPATH for proper imports
             parent_dir = suite_dir.parent
             env_path = f"{parent_dir}{os.pathsep}{os.environ.get('PYTHONPATH','')}"
-            cmd = ["env", f"PYTHONPATH={env_path}", sys.executable]
+            os.environ['PYTHONPATH'] = env_path
+            cmd = [sys.executable]
             if fw.lower() == "pytest":
                 cmd += ["-m", "pytest", str(test_file)]
             else:

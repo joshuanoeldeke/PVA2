@@ -101,21 +101,20 @@ class PerformanceMetrics:
                 p_local = psutil.Process(process.pid)
                 # Monitor CPU and memory until subprocess exits
                 while True:
-                    # Sample CPU times and thread count
                     try:
                         ct = p_local.cpu_times()
+                        mem = p_local.memory_info().rss / 1024 / 1024
+                        # Update resource metrics
                         cpu_user = ct.user - start_cpu.user
                         cpu_system = ct.system - start_cpu.system
                         thread_count = p_local.num_threads()
+                        if mem > peak_memory:
+                            peak_memory = mem
+                        if mem < min_memory:
+                            min_memory = mem
                     except psutil.NoSuchProcess:
                         break
-                    # Sample memory usage
-                    mem = p_local.memory_info().rss / 1024 / 1024
-                    if mem > peak_memory:
-                        peak_memory = mem
-                    if mem < min_memory:
-                        min_memory = mem
-                    # Check for process exit
+                    # Stop monitoring when subprocess exits
                     if process.poll() is not None:
                         break
                     time.sleep(0.01)
