@@ -2,10 +2,15 @@
 import os
 import sys
 from pathlib import Path
+
+# When invoked directly (not installed), add project src to PYTHONPATH
+src_root = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(src_root))
+
 import click
 import configparser
 import logging
-from src.framework_comparison.metrics import PerformanceMetrics
+from framework_comparison.metrics import PerformanceMetrics
 
 @click.command(context_settings={"help_option_names": ["-h", "--help"]})
 @click.option("--verbose", "-v", is_flag=True, help="Enable debug logging output")

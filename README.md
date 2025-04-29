@@ -64,30 +64,45 @@ PVA2/
 
 ## Usage
 
-Run any example suite(s) under a directory using the generic benchmarking CLI:
+Install in editable mode (to register console scripts):
+```bash
+pip install -e .
+```
+
+Run any example suite(s) using the `run-benchmark` console command:
 
 ```bash
-python scripts/run_benchmark.py --path <examples_dir> [options]
+run-benchmark --path <examples_dir> [options]
+```
+
+Or, without installing, invoke as a module (ensuring `src/` is on PYTHONPATH):
+
+```bash
+PYTHONPATH=src python -m framework_comparison.run_benchmark --path <examples_dir>
 ```
 
 Options:
-- `--path, -p`: Root directory containing example subdirectories or a single suite (required).
-- `--frameworks, -f`: List of test frameworks to benchmark (default: `unittest pytest`).
-- `--iterations, -n`: Number of measurement iterations per suite (default: `10`).
-- `--warmup, -w`: Number of warmup runs before measurement (default: `5`).
-- `--output-dir, -o`: Directory to save result JSON files (default: `results/`).
+```text
+--path, -p         Root directory containing example subdirectories or a single suite
+--frameworks, -f   Comma-separated list of test frameworks to benchmark (default: unittest,pytest)
+--iterations, -n   Number of measurement iterations per suite (default: 10)
+--warmup, -w       Number of warmup runs before measurement (default: 5)
+--output-dir, -o   Directory to save result JSON files (default: results/raw_metrics)
+--config, -c       Path to INI config file with [benchmark] section
+--verbose, -v      Enable debug logging output
+```
 
 Examples:
 
 ```bash
 # Benchmark all example suites under test_cases
-python scripts/run_benchmark.py -p test_cases
+run-benchmark -p test_cases
 
 # Benchmark only the pytest framework for the calculator suite
-python scripts/run_benchmark.py -p test_cases/calculator -f pytest -n 5 -w 2
+run-benchmark -p test_cases/calculator -f pytest -n 5 -w 2
 
 # Benchmark a single suite directory directly (fibonacci example)
-python scripts/run_benchmark.py -p test_cases/fibonacci
+run-benchmark -p test_cases/fibonacci
 ```
 
 ---
