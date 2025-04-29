@@ -101,7 +101,7 @@ def plot_boxplots(df, output_dir):
         plt.tight_layout()
         out = Path(output_dir) / f"boxplot_{suite}.png"
         plt.savefig(out)
-        plt.close
+        plt.close()
 
 
 # def animate_speed_comparison(summary_df, output_dir, frames=120):
