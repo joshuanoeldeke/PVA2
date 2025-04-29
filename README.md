@@ -1,3 +1,5 @@
+![CI](https://github.com/yourusername/PVA2/actions/workflows/ci.yml/badge.svg)
+
 # Python Testing Framework Comparison
 
 ## Overview
@@ -22,15 +24,16 @@ The project is inspired by and complements the research of Barbosa and Hora, _�
 
 ```plaintext
 PVA2/
+├── setup.py                      # package setup
 ├── README.md
 ├── requirements.txt
-├── framework_comparison/
+├── framework_comparison/         # core benchmarking package
+│   ├── __init__.py
 │   ├── discovery.py
 │   ├── metrics.py
-│   └── reporting.py
+│   ├── reporting.py
+│   └── run_benchmark.py         # CLI entry point (console script)
 ├── results/                      # performance result JSON files
-├── scripts/
-│   └── run_benchmark.py         # generic benchmarking CLI
 ├── test_cases/                   # example test suites
 │   ├── calculator/
 │   └── fibonacci/
@@ -86,6 +89,18 @@ python scripts/run_benchmark.py -p test_cases/calculator -f pytest -n 5 -w 2
 # Benchmark a single suite directory directly (fibonacci example)
 python scripts/run_benchmark.py -p test_cases/fibonacci
 ```
+
+---
+
+## Recent Changes
+
+- Adopted a standard `src/` layout and packaging via `setup.py` for installable package (console scripts).
+- Replaced `argparse` with a Click‑based CLI (`run‑benchmark`) supporting INI config and `--verbose` logging.
+- Refactored `PerformanceMetrics` with type hints, private helper methods, and Python `logging`.
+- Introduced a `generate‑reports` CLI for statistical summaries, visualizations, and optional speed‑comparison GIF.
+- Added Sphinx documentation under `docs/` (autodoc, viewcode, ReadTheDocs theme) with a Makefile/Make.bat.
+- Built unit tests for discovery logic and configured Black, isort, and GitHub Actions CI for format, lint, tests, and docs build.
+- Provided a `Dockerfile` for a reproducible benchmarking environment.
 
 ---
 

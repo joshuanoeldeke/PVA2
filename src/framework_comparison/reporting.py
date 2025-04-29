@@ -7,11 +7,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 import matplotlib.animation as animation
-from matplotlib.animation import PillowWriter  # for loop support in GIF
+from matplotlib.animation import PillowWriter
+import logging
+import click
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+    level=logging.INFO
+)
 
 
 def load_results(results_dir):
     """Load JSON result files into a pandas DataFrame (recursively)."""
+    # type: (str) -> pd.DataFrame
     records = []
     # Search all JSON files recursively in results_dir
     for file in Path(results_dir).rglob("*.json"):
@@ -27,6 +36,7 @@ def load_results(results_dir):
 
 def compute_summary(df):
     """Compute summary statistics and confidence intervals grouped by suite and framework."""
+    # type: (pd.DataFrame) -> pd.DataFrame
     grp = df.groupby(["test_suite", "framework"])
     summary = grp["execution_time_seconds"].agg(["count", "mean", "median", "std"]).reset_index()
     summary["sem"] = summary["std"] / np.sqrt(summary["count"])
@@ -36,6 +46,7 @@ def compute_summary(df):
 
 def perform_pairwise_tests(df, alpha=0.05):
     """Perform pairwise t-tests between frameworks for each test suite."""
+    # type: (pd.DataFrame, float) -> pd.DataFrame
     results = []
     suites = df["test_suite"].unique()
     for suite in suites:
@@ -57,6 +68,7 @@ def perform_pairwise_tests(df, alpha=0.05):
 
 def plot_mean_execution_time(summary_df, output_dir):
     """Grouped bar plot of mean execution times with 95% CI error bars."""
+    # type: (pd.DataFrame, str) -> Path
     frameworks = summary_df["framework"].unique()
     suites = summary_df["test_suite"].unique()
     n_suites = len(suites)
@@ -92,6 +104,7 @@ def plot_mean_execution_time(summary_df, output_dir):
 
 def plot_boxplots(df, output_dir):
     """Generate boxplots of execution times for each test suite."""
+    # type: (pd.DataFrame, str) -> None
     for suite in df["test_suite"].unique():
         sub = df[df["test_suite"] == suite]
         plt.figure(figsize=(6, 4))
@@ -104,73 +117,81 @@ def plot_boxplots(df, output_dir):
         plt.close()
 
 
-# def animate_speed_comparison(summary_df, output_dir, frames=120):
-#     """Create and save a GIF showing balls bouncing at speeds inverse to mean execution time, with labels."""
-#     frameworks = summary_df['framework'].tolist()
-#     mean_times = summary_df['mean'].tolist()
-#     # Compute normalized speeds and apply speed multiplier
-#     speed_factor = 2.0  # increase this to speed up ball movement
-#     speeds = [1.0 / t for t in mean_times]
-#     max_speed = max(speeds)
-#     norm_speeds = [s / max_speed * speed_factor for s in speeds]
-#     # Setup figure with white background and walls
-#     # set to 1080p (16:9) resolution
-#     fig, ax = plt.subplots(figsize=(19.2, 10.8), dpi=100)
-#     fig.patch.set_facecolor('white')
-#     ax.set_xlim(0, 1)
-#     ax.set_ylim(0, len(frameworks) + 1)
-#     ax.set_aspect('equal')
-#     ax.axis('off')
-#     # expand axes to full figure to remove white margins
-#     fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
-#     ax.margins(x=0)
-#     # expand axis to fill entire figure (remove all white borders)
-#     ax.set_position([0, 0, 1, 1])
-#     # draw left/right walls at ball bounce limits
-#     radius = 0.08  # must match circle radius
-#     wall_opts = dict(colors='gray', linestyles='--', linewidth=1, alpha=0.3)
-#     ax.vlines([radius, 1 - radius], ymin=0, ymax=len(frameworks)+1, **wall_opts)
-#     ax.set_title('Framework Speed Comparison', pad=10)
-#     # assign colors
-#     colors = sns.color_palette('tab10', n_colors=len(frameworks))
-#     # Create circle and text artists
-#     circles, labels = [], []
-#     x_off = 0.05
-#     for idx, (fw, color) in enumerate(zip(frameworks, colors), start=1):
-#         y = idx
-#         circ = plt.Circle((0.1, y), radius, color=color, ec='black', lw=1)
-#         ax.add_patch(circ)
-#         text = ax.text(0.1 + x_off, y, fw,
-#                        va='center', ha='left', fontsize=9, color=color)
-#         circles.append(circ)
-#         labels.append(text)
-#     # Animation update
-#     def update(frame):
-#         artists = []
-#         for i, circ in enumerate(circles):
-#             # smooth bounce across full width
-#             frac = (frame * norm_speeds[i] / frames) % 1
-#             offset = 0.5 * (1 - np.cos(2 * np.pi * frac))  # 0→1→0
-#             x = radius + (1 - 2 * radius) * offset
-#             y = i + 1
-#             circ.center = (x, y)
-#             labels[i].set_position((x + x_off, y))
-#             artists.extend([circ, labels[i]])
-#         return artists
-#     # Create and save animation
-#     ani = animation.FuncAnimation(fig, update, frames=frames, blit=True)
-#     out = Path(output_dir) / 'speed_comparison.gif'
-#     # create PillowWriter for GIF
-#     writer = PillowWriter(fps=30)
-#     # save with tight bounding box and no padding to eliminate borders
-#     ani.save(out, writer=writer, dpi=100,
-#              savefig_kwargs={'bbox_inches':'tight','pad_inches':0})
-#     plt.close(fig)
-#     return out
+def animate_speed_comparison(summary_df, output_dir, frames: int = 120):
+    """Create and save a GIF showing balls bouncing at speeds inverse to mean execution time."""
+    frameworks = summary_df['framework'].tolist()
+    mean_times = summary_df['mean'].tolist()
+    # Compute normalized speeds and apply speed multiplier
+    speed_factor = 2.0  # increase this to speed up ball movement
+    speeds = [1.0 / t for t in mean_times]
+    max_speed = max(speeds)
+    norm_speeds = [s / max_speed * speed_factor for s in speeds]
+    # Setup figure with white background and walls
+    # set to 1080p (16:9) resolution
+    fig, ax = plt.subplots(figsize=(19.2, 10.8), dpi=100)
+    fig.patch.set_facecolor('white')
+    ax.set_xlim(0, 1)
+    ax.set_ylim(0, len(frameworks) + 1)
+    ax.set_aspect('equal')
+    ax.axis('off')
+    # expand axes to full figure to remove white margins
+    fig.subplots_adjust(left=0, right=1, top=1, bottom=0)
+    ax.margins(x=0)
+    # expand axis to fill entire figure (remove all white borders)
+    ax.set_position([0, 0, 1, 1])
+    # draw left/right walls at ball bounce limits
+    radius = 0.08  # must match circle radius
+    wall_opts = dict(colors='gray', linestyles='--', linewidth=1, alpha=0.3)
+    ax.vlines([radius, 1 - radius], ymin=0, ymax=len(frameworks)+1, **wall_opts)
+    ax.set_title('Framework Speed Comparison', pad=10)
+    # assign colors
+    colors = sns.color_palette('tab10', n_colors=len(frameworks))
+    # Create circle and text artists
+    circles, labels = [], []
+    x_off = 0.05
+    for idx, (fw, color) in enumerate(zip(frameworks, colors), start=1):
+        y = idx
+        circ = plt.Circle((0.1, y), radius, color=color, ec='black', lw=1)
+        ax.add_patch(circ)
+        text = ax.text(0.1 + x_off, y, fw,
+                       va='center', ha='left', fontsize=9, color=color)
+        circles.append(circ)
+        labels.append(text)
+    # Animation update
+    def update(frame):
+        artists = []
+        for i, circ in enumerate(circles):
+            # smooth bounce across full width
+            frac = (frame * norm_speeds[i] / frames) % 1
+            offset = 0.5 * (1 - np.cos(2 * np.pi * frac))  # 0→1→0
+            x = radius + (1 - 2 * radius) * offset
+            y = i + 1
+            circ.center = (x, y)
+            labels[i].set_position((x + x_off, y))
+            artists.extend([circ, labels[i]])
+        return artists
+    # Create and save animation
+    ani = animation.FuncAnimation(fig, update, frames=frames, blit=True)
+    out = Path(output_dir) / 'speed_comparison.gif'
+    # create PillowWriter for GIF
+    writer = PillowWriter(fps=30)
+    # save with tight bounding box and no padding to eliminate borders
+    ani.save(out, writer=writer, dpi=100,
+             savefig_kwargs={'bbox_inches':'tight','pad_inches':0})
+    plt.close(fig)
+    return out
 
 
-def generate_reports(results_dir="results", report_dir="reports"):
-    """Load results, compute stats, perform tests, and generate visualizations and CSV summaries."""
+@click.command(name="generate-reports")
+@click.option("--results-dir", "-r", default="results/raw_metrics", show_default=True,
+              help="Directory containing raw JSON result files")
+@click.option("--report-dir", "-o", default="results/reports", show_default=True,
+              help="Output directory for reports and plots")
+@click.option("--include-animation", "-a", is_flag=True,
+              help="Include speed comparison GIF in the reports")
+def generate_reports(results_dir, report_dir, include_animation):
+    """Generate statistical summaries, visualizations, and optional animation."""
+    logger.info("Creating report directory: %s", report_dir)
     os.makedirs(report_dir, exist_ok=True)
     df = load_results(results_dir)
     summary = compute_summary(df)
@@ -179,17 +200,11 @@ def generate_reports(results_dir="results", report_dir="reports"):
     tests.to_csv(Path(report_dir) / "pairwise_tests.csv", index=False)
     plot_mean_execution_time(summary, report_dir)
     plot_boxplots(df, report_dir)
-    # Create speed comparison GIF
-    #animate_speed_comparison(summary, report_dir)
-    print(f"Reports generated in {report_dir}")
+    if include_animation:
+        logger.info("Generating animation GIF")
+        animate_speed_comparison(summary, report_dir)
+    logger.info("Reports generated in %s", report_dir)
 
 
 if __name__ == "__main__":
-    import argparse
-    parser = argparse.ArgumentParser(description="Generate performance reports from raw results")
-    parser.add_argument("--results-dir", "-r", default="results/raw_metrics",
-                        help="Directory containing raw JSON result files (defaults to results/raw_metrics)")
-    parser.add_argument("--report-dir", "-o", default="results/reports",
-                        help="Output directory for reports and plots")
-    args = parser.parse_args()
-    generate_reports(args.results_dir, args.report_dir)
+    generate_reports()

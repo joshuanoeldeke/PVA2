@@ -1,15 +1,22 @@
-iniconfig==2.1.0
-numpy==2.2.4
-packaging==24.2
-pluggy==1.5.0
-psutil==7.0.0
-pytest==8.3.5
-scipy==1.15.2
+iniconfig
+numpy
+packaging
+pluggy
+psutil
+pytest
+scipy
 
 # Added for reporting and visualization
-pandas==2.0.3
-matplotlib==3.7.2
-seaborn==0.12.2
+pandas
+matplotlib
+seaborn
 
 # Added for GIF animation
-pillow==9.5.0
+pillow
+
+# CLI
+click
+
+# Documentation
+sphinx
+sphinx-rtd-theme
