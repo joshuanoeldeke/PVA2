@@ -177,5 +177,5 @@ cython_debug/
 .DS_Store
 
 # Ignore all files in the raw_metrics and reports directories
-#results/raw_metrics/*
-#results/reports/*
+results/raw_metrics/*
+results/reports/*
