@@ -3,7 +3,7 @@ from pathlib import Path
 from report_utils.data_loading import load_results
 from report_utils.summary import compute_summary
 from report_utils.stats import perform_pairwise_tests
-from report_utils.plotting import plot_mean_execution_time, plot_boxplots
+from report_utils.plotting import plot_mean_execution_time, plot_boxplots, plot_mean_per_suite
 
 
 def generate_reports(results_dir="results", report_dir="reports"):
@@ -15,6 +15,7 @@ def generate_reports(results_dir="results", report_dir="reports"):
     tests = perform_pairwise_tests(df)
     tests.to_csv(Path(report_dir) / "pairwise_tests.csv", index=False)
     plot_mean_execution_time(summary, report_dir)
+    plot_mean_per_suite(summary, report_dir)
     plot_boxplots(df, report_dir)
     # Create speed comparison GIF
     #animate_speed_comparison(summary, report_dir)

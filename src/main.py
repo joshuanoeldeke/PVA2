@@ -11,7 +11,7 @@ def main():
     parser.add_argument('--bench', action='store_true', help='Execute benchmarks only')
     parser.add_argument('--report', action='store_true', help='Generate reports only')
     # Benchmarking options
-    parser.add_argument('--path', '-p', default='test_cases', help='Root directory with example suites')
+    parser.add_argument('--path', '-p', default='sample_cases', help='Root directory with example suites')
     parser.add_argument('--frameworks', '-f', nargs='+', help='Frameworks to benchmark')
     parser.add_argument('--iterations', '-n', type=int, default=10, help='Number of iterations per run')
     parser.add_argument('--warmup', '-w', type=int, default=5, help='Warmup runs before measurement')

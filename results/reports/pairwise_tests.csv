@@ -1,3 +1,3 @@
 test_suite,framework1,framework2,t_stat,p_value,significant
-calculator,unittest,pytest,-17.427909476232504,1.248163672592941e-12,True
-fibonacci,pytest,unittest,14.12891131603848,4.191221434794543e-11,True
+calculator,unittest,pytest,-34.249550124212945,3.819498078634531e-14,True
+fibonacci,pytest,unittest,33.167019864529905,2.9420886573928504e-13,True

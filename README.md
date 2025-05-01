@@ -31,7 +31,7 @@ PVA2/
 ├── results/                      # performance result JSON files
 ├── scripts/
 │   └── run_benchmark.py         # generic benchmarking CLI
-├── test_cases/                   # example test suites
+├── sample_cases/                   # example test suites
 │   ├── calculator/
 │   └── fibonacci/
 ```
@@ -77,21 +77,21 @@ Options:
 Examples:
 
 ```bash
-# Benchmark all example suites under test_cases
-python scripts/run_benchmark.py -p test_cases
+# Benchmark all example suites under sample_cases
+python scripts/run_benchmark.py -p sample_cases
 
 # Benchmark only the pytest framework for the calculator suite
-python scripts/run_benchmark.py -p test_cases/calculator -f pytest -n 5 -w 2
+python scripts/run_benchmark.py -p sample_cases/calculator -f pytest -n 5 -w 2
 
 # Benchmark a single suite directory directly (fibonacci example)
-python scripts/run_benchmark.py -p test_cases/fibonacci
+python scripts/run_benchmark.py -p sample_cases/fibonacci
 ```
 
 ---
 
 ## How to Extend
 
-- Add new test suites to `test_cases/` or point the tool at any project directory.
+- Add new test suites to `sample_cases/` or point the tool at any project directory.
 - Add new datasets to the `datasets/` directory and update the discovery logic as needed.
 - Modify `metrics.py` to collect additional metrics (e.g., peak memory, CPU usage).
 - Use or extend `reporting.py` for richer result visualization.

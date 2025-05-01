@@ -42,3 +42,20 @@ def plot_boxplots(df, output_dir):
         out = Path(output_dir) / f"boxplot_{suite}.png"
         plt.savefig(out)
         plt.close()
+
+
+def plot_mean_per_suite(summary_df, output_dir):
+    """Generate a bar chart of mean execution time with 95% CI for each framework, per test suite."""
+    for suite in summary_df['test_suite'].unique():
+        sub = summary_df[summary_df['test_suite'] == suite]
+        frameworks = sub['framework'].tolist()
+        means = sub['mean'].tolist()
+        cis = sub['ci95'].tolist()
+        fig, ax = plt.subplots(figsize=(6, 4))
+        ax.bar(frameworks, means, yerr=cis, capsize=5)
+        ax.set_title(f"Mean Execution Time: {suite}")
+        ax.set_ylabel("Mean Execution Time (s)")
+        fig.tight_layout()
+        out = Path(output_dir) / f"mean_execution_time_{suite}.png"
+        fig.savefig(out)
+        plt.close(fig)

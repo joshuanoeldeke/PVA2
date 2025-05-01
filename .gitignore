@@ -176,5 +176,4 @@ cython_debug/
 # Mac specific
 .DS_Store
 
-results/raw_metrics/
-results/reports/
+results/

@@ -6,7 +6,7 @@ import argparse
 from benchmarking_utils.core import PerformanceMetrics
 
 
-def generate_benchmarks(path='test_cases', frameworks=None, iterations=10, warmup=5, output_dir='results/raw_metrics'):
+def generate_benchmarks(path='sample_cases', frameworks=None, iterations=10, warmup=5, output_dir='results/raw_metrics'):
     """Discover example suites and measure performance for each specified framework."""
     root = Path(path)
     # Determine if single-suite or multi-suite
@@ -45,7 +45,7 @@ def generate_benchmarks(path='test_cases', frameworks=None, iterations=10, warmu
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Generate raw performance metrics for test suites.")
-    parser.add_argument('--path', '-p', default='test_cases', help='Root directory with example suites')
+    parser.add_argument('--path', '-p', default='sample_cases', help='Root directory with example suites')
     parser.add_argument('--frameworks', '-f', nargs='+', help='Frameworks to benchmark')
     parser.add_argument('--iterations', '-n', type=int, default=10, help='Number of iterations per run')
     parser.add_argument('--warmup', '-w', type=int, default=5, help='Warmup runs before measurement')
