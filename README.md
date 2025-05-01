@@ -167,8 +167,6 @@ python src/main.py --report -r results/raw_metrics -o results/reports
 - **Mean:** The average value across all runs.
 - **Median:** The middle value when all runs are sorted; less sensitive to outliers.
 - **Standard Deviation (stdev):** How much the results vary from the mean; lower is more consistent.
-- **Confidence Interval:** The range in which the true mean likely falls (e.g., 95% certainty).
-- **Bootstrap:** A resampling technique to estimate the reliability of statistics, especially with small samples.
 
 ---
 
