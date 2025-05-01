@@ -176,4 +176,6 @@ cython_debug/
 # Mac specific
 .DS_Store
 
-results/
+# Ignore all files in the raw_metrics and reports directories
+results/raw_metrics/*
+results/reports/*
