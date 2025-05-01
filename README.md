@@ -21,19 +21,19 @@ The project is inspired by and complements the research of Barbosa and Hora, _�
 ## Project Structure
 
 ```plaintext
-PVA2/
+.
 ├── README.md
 ├── requirements.txt
-├── framework_comparison/
-│   ├── discovery.py
-│   ├── metrics.py
-│   └── reporting.py
-├── results/                      # performance result JSON files
-├── scripts/
-│   └── run_benchmark.py         # generic benchmarking CLI
-├── sample_cases/                   # example test suites
-│   ├── calculator/
-│   └── fibonacci/
+├── src/                  # Application code and entrypoints
+│   ├── main.py           # Unified CLI: benchmarks + reporting
+│   ├── benchmarking.py   # Standalone benchmarking CLI
+│   ├── reporting.py      # Standalone reporting CLI
+│   ├── benchmarking_utils/  # Core benchmarking modules
+│   └── report_utils/     # Core reporting modules
+├── sample_cases/         # Example test suites (calculator, fibonacci, ...)
+└── results/              # Output of runs and reports
+    ├── raw_metrics/      # JSON per-framework metrics
+    └── reports/          # CSV summaries and PNG/graphics
 ```
 
 ---
@@ -61,40 +61,55 @@ PVA2/
 
 ## Usage
 
-Run any example suite(s) under a directory using the generic benchmarking CLI:
+Choose one of the CLI entrypoints under `src/`:
 
+**Benchmarking only:**
 ```bash
-python scripts/run_benchmark.py --path <examples_dir> [options]
+python src/benchmarking.py --path <examples_dir> [options]
 ```
-
 Options:
-- `--path, -p`: Root directory containing example subdirectories or a single suite (required).
-- `--frameworks, -f`: List of test frameworks to benchmark (default: `unittest pytest`).
-- `--iterations, -n`: Number of measurement iterations per suite (default: `10`).
-- `--warmup, -w`: Number of warmup runs before measurement (default: `5`).
-- `--output-dir, -o`: Directory to save result JSON files (default: `results/`).
+- `--path, -p`  : Root directory with example suites (default: `test_cases`)
+- `--frameworks, -f` : Frameworks to benchmark (default: `unittest pytest`)
+- `--iterations, -n` : Number of measurement iterations (default: `10`)
+- `--warmup, -w` : Warmup runs before timing (default: `5`)
+- `--output-dir, -o` : Directory for raw JSON outputs (default: `results/raw_metrics`)
 
-Examples:
-
+**Reporting only:**
 ```bash
-# Benchmark all example suites under sample_cases
-python scripts/run_benchmark.py -p sample_cases
+python src/reporting.py --results-dir <raw_metrics_dir> [options]
+```
+Options:
+- `--results-dir, -r` : Directory containing raw JSON results (default: `results/raw_metrics`)
+- `--report-dir, -o` : Directory for CSV and PNG outputs (default: `results/reports`)
 
-# Benchmark only the pytest framework for the calculator suite
-python scripts/run_benchmark.py -p sample_cases/calculator -f pytest -n 5 -w 2
+**Benchmarks + Reports (unified):**
+```bash
+python src/main.py [--bench] [--report] [options]
+```
+Flags:
+- `--bench`   : run benchmarks only
+- `--report`  : generate reports only
 
-# Benchmark a single suite directory directly (fibonacci example)
-python scripts/run_benchmark.py -p sample_cases/fibonacci
+All benchmarking and reporting flags from above are supported together. Example:
+```bash
+# run both pipelines on sample_cases
+python src/main.py -p sample_cases -n 5 -w 2
+
+# benchmarks only
+python src/main.py --bench -p sample_cases
+
+# reports only
+python src/main.py --report -r results/raw_metrics -o results/reports
 ```
 
 ---
 
 ## How to Extend
 
-- Add new test suites to `sample_cases/` or point the tool at any project directory.
-- Add new datasets to the `datasets/` directory and update the discovery logic as needed.
-- Modify `metrics.py` to collect additional metrics (e.g., peak memory, CPU usage).
-- Use or extend `reporting.py` for richer result visualization.
+- Add new test suites under `sample_cases/` or any directory and point `--path` to it.
+- Extend `benchmarking_utils/` to collect additional metrics or support new execution modes.
+- Enhance `report_utils/` (data_loading, summary, stats, plotting) for custom analyses or new visualizations.
+- Adjust or add CLI options in `src/benchmarking.py`, `src/reporting.py`, and `src/main.py` to fit your workflow.
 
 ---
 
@@ -117,7 +132,7 @@ python scripts/run_benchmark.py -p sample_cases/fibonacci
 
 ## License
 
-MIT License (or your preferred license).
+MIT License.
 
 ---
 
