@@ -176,6 +176,5 @@ cython_debug/
 # Mac specific
 .DS_Store
 
-.repos/
-datasets/
-migration_suites/
+results/raw_metrics/
+results/reports/
