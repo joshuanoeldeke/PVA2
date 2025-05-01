@@ -104,6 +104,55 @@ python src/main.py --report -r results/raw_metrics -o results/reports
 
 ---
 
+## Detailed Workflow & Outputs
+
+1. **Discovery**
+   - The benchmarking CLI (`src/benchmarking.py` or via `src/main.py`) scans the `--path` directory.
+   - If it finds matching `test_<suite>_unittest.py` and `test_<suite>_pytest.py`, it treats the folder as a single suite; otherwise it enumerates each subdirectory.
+
+2. **Measurement**
+   - For each suite and framework, tests run in an isolated subprocess to capture:
+     - **execution_time_seconds**: wall-clock duration.
+     - **min_memory_mb** / **peak_memory_mb**: tracked via `psutil`.
+     - **cpu_user_time_seconds** / **cpu_system_time_seconds**: CPU usage breakdown.
+     - **thread_count**: number of threads spawned.
+     - **exit_code**: process return code.
+   - Warmup runs (default `--warmup 5`) skip recording; measurement runs (default `--iterations 10`) record detailed per-run data.
+
+3. **Raw JSON Output**
+   - Saved under `results/raw_metrics/` as `<suite>_<framework>.json`.
+   - Structure:
+     ```json
+     {
+       "metadata": { /* timestamp, platform, CPU/RAM specs, Python and framework version */ },
+       "framework": "pytest",             
+       "test_suite": "calculator",
+       "runs": [                          
+         {"iteration": 1, "execution_time_seconds": 0.09, /* ... */},
+         {"iteration": 2, /* ... */},
+         /* ... */
+       ]
+     }
+     ```
+
+4. **Summary CSV (`summary.csv`)**
+   - One row per (test_suite, framework).
+   - Columns:
+     - `count`: number of recorded runs
+     - `mean`, `median`, `std`, `sem`: descriptive stats of execution times
+     - `ci95`: half-width of the 95% confidence interval
+
+5. **Pairwise Tests (`pairwise_tests.csv`)**
+   - Two-sample t-tests between each pair of frameworks, per suite.
+   - Columns:`t_stat`, `p_value`, `significant` (p < 0.05)
+
+6. **Visualizations**
+   - `mean_execution_time.png`: grouped bar chart of all suites’ mean times (95% CI).
+   - `mean_execution_time_<suite>.png`: per-suite bar chart with error bars.
+   - `boxplot_<suite>.png`: boxplot of raw iteration times.
+
+---
+
 ## How to Extend
 
 - Add new test suites under `sample_cases/` or any directory and point `--path` to it.
